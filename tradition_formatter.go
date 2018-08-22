@@ -4,7 +4,6 @@ import (
 	"os"
 	"time"
 	"sync"
-	"github.com/sirupsen/logrus"
 	"sort"
 	"bytes"
 	"strings"
@@ -69,7 +68,7 @@ type TraditionFormatter struct {
 	sync.Once
 }
 
-func (f *TraditionFormatter) init(entry *logrus.Entry) {
+func (f *TraditionFormatter) init(entry *Entry) {
 	if entry.Logger != nil {
 		f.isTerminal = checkIfTerminal(entry.Logger.Out)
 	}
@@ -92,7 +91,7 @@ func (f *TraditionFormatter) isColored() bool {
 }
 
 // Format renders a single log entry
-func (f *TraditionFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+func (f *TraditionFormatter) Format(entry *Entry) ([]byte, error) {
 
 	keys := make([]string, 0, len(entry.Data))
 	for k := range entry.Data {
@@ -137,14 +136,14 @@ func (f *TraditionFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-func (f *TraditionFormatter) printColored(b *bytes.Buffer, entry *logrus.Entry, keys []string, timestampFormat string) {
+func (f *TraditionFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []string, timestampFormat string) {
 	var levelColor int
 	switch entry.Level {
-	case logrus.DebugLevel:
+	case DebugLevel:
 		levelColor = gray
-	case logrus.WarnLevel:
+	case WarnLevel:
 		levelColor = yellow
-	case logrus.ErrorLevel, logrus.FatalLevel, logrus.PanicLevel:
+	case ErrorLevel, FatalLevel, PanicLevel:
 		levelColor = red
 	default:
 		levelColor = blue
