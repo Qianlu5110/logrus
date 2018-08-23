@@ -9,7 +9,7 @@ fork from https://github.com/sirupsen/logrus
 
 ### 引入
 ```
-import "git.icsoc.net/paas/logrus-plus"
+import "github.com/Qianlu5110/logrus"
 ```
 
 ### 初始化配置
