@@ -2,7 +2,6 @@ package logrus
 
 import (
 	"github.com/Qianlu5110/logrus"
-	//"git.icsoc.net/paas/logrus-plus"
 	"os"
 	"testing"
 )
