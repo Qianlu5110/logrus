@@ -1,4 +1,4 @@
-# logrus-plus使用说明
+# logrus自定义日志格式效果及说明
 
 ### 源
 fork from https://github.com/sirupsen/logrus
