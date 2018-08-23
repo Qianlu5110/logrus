@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 	"strings"
-	"github.com/Qianlu5110/logrus"
+	"logrus"
 )
 
 // ContextHook for log the call context
