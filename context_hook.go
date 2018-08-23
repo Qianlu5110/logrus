@@ -1,40 +1,39 @@
-package file
+package logrus
 
 import (
 	"fmt"
 	"runtime"
 	"strings"
-	"../.."
 )
 
 // ContextHook for log the call context
 type ContextHook struct {
 	Field  string
 	Skip   int
-	levels []logrus.Level
+	levels []Level
 }
 
 // FileContextHook use to make an hook
 // 根据上面的推断, 我们递归深度可以设置到5即可.
-func FileContextHook(levels ...logrus.Level) logrus.Hook {
+func FileContextHook(levels ...Level) Hook {
 	hook := ContextHook{
 		Field:  "source",
 		Skip:   5,
 		levels: levels,
 	}
 	if len(hook.levels) == 0 {
-		hook.levels = logrus.AllLevels
+		hook.levels = AllLevels
 	}
 	return &hook
 }
 
 // Levels implement levels
-func (hook ContextHook) Levels() []logrus.Level {
-	return logrus.AllLevels
+func (hook ContextHook) Levels() []Level {
+	return AllLevels
 }
 
 // Fire implement fire
-func (hook ContextHook) Fire(entry *logrus.Entry) error {
+func (hook ContextHook) Fire(entry *Entry) error {
 	entry.Data[hook.Field] = findCaller(hook.Skip)
 	return nil
 }
