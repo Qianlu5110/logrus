@@ -33,7 +33,7 @@ package main
 
 import (
 	"log-test/log"
-	"git.icsoc.net/paas/logrus-plus"
+	"github.com/Qianlu5110/logrus"
 )
 
 func main() {
