@@ -46,4 +46,5 @@ func main() {
 }
 ```
 
-
+### DEMO
+https://github.com/Qianlu5110/logrus/blob/master/tradition_formatter_test.go
