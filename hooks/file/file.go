@@ -8,17 +8,17 @@ import (
 )
 
 // ContextHook for log the call context
-type contextHook struct {
+type ContextHook struct {
 	Field  string
 	Skip   int
 	levels []logrus.Level
 }
 
-// FileHook use to make an hook
+// FileContextHook use to make an hook
 // 根据上面的推断, 我们递归深度可以设置到5即可.
-func FileHook(levels ...logrus.Level) logrus.Hook {
-	hook := contextHook{
-		Field:  "line",
+func FileContextHook(levels ...logrus.Level) logrus.Hook {
+	hook := ContextHook{
+		Field:  "source",
 		Skip:   5,
 		levels: levels,
 	}
@@ -29,12 +29,12 @@ func FileHook(levels ...logrus.Level) logrus.Hook {
 }
 
 // Levels implement levels
-func (hook contextHook) Levels() []logrus.Level {
+func (hook ContextHook) Levels() []logrus.Level {
 	return logrus.AllLevels
 }
 
 // Fire implement fire
-func (hook contextHook) Fire(entry *logrus.Entry) error {
+func (hook ContextHook) Fire(entry *logrus.Entry) error {
 	entry.Data[hook.Field] = findCaller(hook.Skip)
 	return nil
 }
