@@ -1,15 +1,15 @@
 package logrus
 
 import (
-	"os"
-	"time"
-	"sync"
-	"sort"
 	"bytes"
-	"strings"
-	"strconv"
 	"fmt"
+	"os"
 	"runtime"
+	"sort"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
 )
 
 const (
@@ -64,6 +64,9 @@ type TraditionFormatter struct {
 	//         FieldKeyLevel: "@level",
 	//         FieldKeyMsg:   "@message"}}
 	FieldMap FieldMap
+
+	// for show goroutine id
+	ShowGoroutineId bool
 
 	sync.Once
 }
@@ -159,13 +162,24 @@ func (f *TraditionFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []
 		source = entry.Data[KEY_SOURCE].(string)
 	}
 
-	if f.DisableTimestamp {
-		fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m [GoID:%d] %s %-44s ", levelColor, levelText, GoId(), source, entry.Message)
-	} else if !f.FullTimestamp {
-		fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%04d] [GoID:%d] %s %-44s ", levelColor, levelText, int(entry.Time.Sub(baseTimestamp)/time.Second), GoId(), source, entry.Message)
+	if f.ShowGoroutineId {
+		if f.DisableTimestamp {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m [GoID:%d] %s %-44s ", levelColor, levelText, GoId(), source, entry.Message)
+		} else if !f.FullTimestamp {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%04d] [GoID:%d] %s %-44s ", levelColor, levelText, int(entry.Time.Sub(baseTimestamp)/time.Second), GoId(), source, entry.Message)
+		} else {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%s] [GoID:%d] %s %-44s ", levelColor, levelText, entry.Time.Format(timestampFormat), GoId(), source, entry.Message)
+		}
 	} else {
-		fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%s] [GoID:%d] %s %-44s ", levelColor, levelText, entry.Time.Format(timestampFormat), GoId(), source, entry.Message)
+		if f.DisableTimestamp {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m %s %-44s ", levelColor, levelText, source, entry.Message)
+		} else if !f.FullTimestamp {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%04d] %s %-44s ", levelColor, levelText, int(entry.Time.Sub(baseTimestamp)/time.Second), source, entry.Message)
+		} else {
+			fmt.Fprintf(b, "\x1b[%dm[%s] \x1b[0m[%s] %s %-44s ", levelColor, levelText, entry.Time.Format(timestampFormat), source, entry.Message)
+		}
 	}
+
 	for _, k := range keys {
 		if k == KEY_SOURCE {
 			continue

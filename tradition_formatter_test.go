@@ -11,6 +11,7 @@ func InitLog(level logrus.Level) {
 	traditionFormatter.ForceColors = true
 	traditionFormatter.FullTimestamp = true
 	traditionFormatter.DisableLevelTruncation = false
+	traditionFormatter.ShowGoroutineId = false
 	traditionFormatter.TimestampFormat = "2006-01-02 15:04:05.000000000"
 	logrus.AddHook(logrus.FileContextHook())
 	logrus.SetOutput(os.Stdout)
