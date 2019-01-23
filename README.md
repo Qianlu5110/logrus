@@ -4,7 +4,8 @@
 fork from https://github.com/sirupsen/logrus
 
 ### 效果图
-![image](https://apis.loveke.xin/uploads/images/7731ad61-faab-4641-973f-f84872f73884.png)
+![image](https://github.com/Qianlu5110/logrus/pic/demo1.png)
+![image](https://github.com/Qianlu5110/logrus/pic/demo2.png)
 
 
 ### 引入
@@ -19,6 +20,7 @@ func InitLog(level logrus.Level) {
 	traditionFormatter.ForceColors = true
 	traditionFormatter.FullTimestamp = true
 	traditionFormatter.DisableLevelTruncation = false
+	traditionFormatter.ShowGoroutineId = false //goroutineId 显示开关
 	traditionFormatter.TimestampFormat = "2006-01-02 15:04:05.000000000"
 	logrus.AddHook(logrus.FileContextHook())
 	logrus.SetOutput(os.Stdout)
