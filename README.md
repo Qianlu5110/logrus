@@ -4,8 +4,8 @@
 fork from https://github.com/sirupsen/logrus
 
 ### 效果图
-![image](https://github.com/Qianlu5110/logrus/pic/demo1.png)
-![image](https://github.com/Qianlu5110/logrus/pic/demo2.png)
+![image](https://github.com/Qianlu5110/logrus/blob/master/pic/demo1.png)
+![image](https://github.com/Qianlu5110/logrus/blob/master/pic/demo2.png)
 
 
 ### 引入
