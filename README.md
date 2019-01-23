@@ -34,12 +34,11 @@ func InitLog(level logrus.Level) {
 package main
 
 import (
-	"log-test/log"
 	"github.com/Qianlu5110/logrus"
 )
 
 func main() {
-	log.InitLog(logrus.DebugLevel)
+	InitLog(logrus.DebugLevel)
 
 	logrus.Infof("hello : %d", 1)
 	logrus.Debugf("hello : %d", 2)
